@@ -46,4 +46,10 @@ w_haar_3_3=numpy.matmul(w_haar_3.T,w_haar_3)
 
 image_inter=signal.convolve2d(image_up_3,w_haar_3_3,'same').astype('uint8')
 
+#Filtrado de la imagen con haar.
+
+h_soft_haar_2=numpy.ones((1,2))*(1/2)
+h_soft_haar_2_2=numpy.matmul(h_soft_haar_2.T,h_soft_haar_2)
+image_filt_haar=signal.convolve2d(image_inter,h_soft_haar_2_2,'same')
+
 #Decimacion en factor 2.
