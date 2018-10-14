@@ -4,6 +4,7 @@ Created on Thu Oct 11 13:36:28 2018
 
 @author: Jorge O. Gonzalez
 """
+#Bibliotecas.
 
 import cv2
 import numpy
@@ -20,22 +21,29 @@ def upsample(matrix,fct):
     return f
 
 #Imagen original.
-imagen_original=cv2.imread('antena.png')
-cv2.imshow('imagenoriginal',imagen_original)
+image_original=cv2.imread('antena.png')
+cv2.imshow('imagenoriginal',image_original)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 #Imagen blanco y negro
 
-imagen_WB=cv2.imread('antena.png',cv2.IMREAD_GRAYSCALE)
-cv2.imshow('imagenblanconegro',imagen_WB)
+image_WB=cv2.imread('antena.png',cv2.IMREAD_GRAYSCALE)
+cv2.imshow('imagenblanconegro',image_WB)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-# Filtrado de la imagen con filtro Haar 2x2.
+#Sobre muestreo de la imagen.
 
-h__soft_haar_2=numpy.ones((1,3))*(1/3)
-h-soft_haar_2x2=numpy.matmul(h__soft_haar_2.T,h__soft_haar_2)
-imagen_filt=signa.convolve2d(imagen_WB,h_soft_haar_2x2,'same').astype('uint8')
+image_up_3=upsample(image_WB,3)
 
-#
+#Ventana Haar de 3x3.
+
+w_haar_3=numpy.ones((1,3))
+w_haar_3_3=numpy.matmul(w_haar_3.T,w_haar_3)
+
+#interpolacion de la imagen en factor 3.
+
+image_inter=signal.convolve2d(image_up_3,w_haar_3_3,'same').astype('uint8')
+
+#Decimacion en factor 2.
