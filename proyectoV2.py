@@ -36,6 +36,9 @@ cv2.destroyAllWindows()
 #Sobre muestreo de la imagen.
 
 image_up_3=upsample(image_WB,3)
+cv2.imshow('imagensobremuestreada',image_up_3)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 #Ventana Haar de 3x3.
 
@@ -45,11 +48,22 @@ w_haar_3_3=numpy.matmul(w_haar_3.T,w_haar_3)
 #interpolacion de la imagen en factor 3.
 
 image_inter=signal.convolve2d(image_up_3,w_haar_3_3,'same').astype('uint8')
+cv2.imshow('imageninterpolada',image_inter)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 #Filtrado de la imagen con haar.
 
-h_soft_haar_2=numpy.ones((1,2))*(1/2)
+h_soft_haar_2=numpy.ones((1,2))*(1.0/2)
 h_soft_haar_2_2=numpy.matmul(h_soft_haar_2.T,h_soft_haar_2)
 image_filt_haar=signal.convolve2d(image_inter,h_soft_haar_2_2,'same')
+cv2.imshow('imageninterpoladaconfiltro',image_filt_haar)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 #Decimacion en factor 2.
+
+image_deci_2_2=image_filt_haar[0:image_filt_haar.shape[0]:2,0:image_filt_haar.shape[1]:2]
+cv2.imshow('imagendecimada',image_deci_2_2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
